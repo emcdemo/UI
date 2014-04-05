@@ -1,0 +1,96 @@
+{
+    "id": "AAA3BBBB4CCCCC5",
+    "fulFillmentDetails": {
+        "address": {
+            "country": "United States",
+            "siteID": null,
+            "streetAddress": "176 South Street",
+            "city": "Hopkinton",
+            "province": null,
+            "provinceCode": "MA",
+            "pinCode": "01730",
+            "systemList": null
+        },
+        "date": "Friday, April 04,2014",
+        "sentEmail": null
+    },
+    "products": [
+        {
+            "productActivationType": "L",
+            "productDetail": {
+                "name": "Networker Mod for Oracle CLT Oralce & Later UX",
+                "id": "1",
+                "totalQty": 10,
+                "activeQty": 0,
+                "availableQty": 10,
+                "activationList": null
+            }
+        },
+        {
+            "productActivationType": "L",
+            "productDetail": {
+                "name": "Open File Mgr Client Server Windows",
+                "id": "2",
+                "totalQty": 10,
+                "activeQty": 0,
+                "availableQty": 10,
+                "activationList": null
+            }
+        },
+        {
+            "productActivationType": "L",
+            "productDetail": {
+                "name": "Open Client Workstation Windows",
+                "id": "3",
+                "totalQty": 10,
+                "activeQty": 0,
+                "availableQty": 10,
+                "activationList": null
+            }
+        },
+        {
+            "productActivationType": "C",
+            "productDetail": {
+                "name": "PowerPath VE Unserved License, VMware",
+                "id": "4",
+                "totalQty": 50,
+                "activeQty": 0,
+                "availableQty": 50,
+                "activationList": null
+            }
+        },
+        {
+            "productActivationType": "C",
+            "productDetail": {
+                "name": "PowerPath VE Served License, VMware",
+                "id": "5",
+                "totalQty": 100,
+                "activeQty": 0,
+                "availableQty": 100,
+                "activationList": null
+            }
+        },
+        {
+            "productActivationType": "C",
+            "productDetail": {
+                "name": "PowerPath for Windows",
+                "id": "6",
+                "totalQty": 1,
+                "activeQty": 0,
+                "availableQty": 1,
+                "activationList": null
+            }
+        },
+        {
+            "productActivationType": "A",
+            "productDetail": {
+                "name": "Product Bundle Details",
+                "id": "7",
+                "totalQty": 1,
+                "activeQty": 0,
+                "availableQty": 1,
+                "activationList": null
+            }
+        }
+    ]
+}

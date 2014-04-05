@@ -3,7 +3,9 @@ $(document).ready(function () {
 	$('[data-toggle=offcanvas]').click(function () {
 		$('.row-offcanvas').toggleClass('active');
 	});
-	$('body').height($(document).height());
+	
+	/** Use the below line, in case the steps form is maller than the steps list on the left side **/
+	//$('body').height($(document).height());
 
 
 	$( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
@@ -14,5 +16,19 @@ $(document).ready(function () {
 		$('#selectedSite strong').text($target.text());
 		return false;
 	});
-});
 
+
+	$('#filter-list').on('keyup', function () {
+		var srcText = $.trim($(this).val());
+		$('.filter-list li').each(function () {
+			if($(this).text().toLowerCase().indexOf(srcText) >= 0 )
+			{
+				$(this).show();
+			}
+			else
+			{
+				$(this).hide();
+			}
+		});
+	});
+});
