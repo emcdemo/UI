@@ -104,19 +104,19 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Networker Mod for Oracle CLT Oracle8 & Later UX</td>
+                              <td>Networker Mod for Oracle CLT Oracle8 & Later UX <a class="productInfoLink" id="product-id-1" href="javascript:;">Info</a></td>
                               <td class="text-center">10</td>
                               <td class="text-center"><span class="lightGrayText">0</span></td>
                               <td class="text-center">10</td>
                             </tr>
                             <tr>
-                              <td>Open File Mgr 25 Client Server Window Netware</td>
+                              <td>Open File Mgr 25 Client Server Window Netware <a class="productInfoLink" id="product-id-2" href="javascript:;">Info</a></td>
                               <td class="text-center">10</td>
                               <td class="text-center"><span class="lightGrayText">0</span></td>
                               <td class="text-center">10</td>
                             </tr>
                             <tr>
-                              <td>Open file Mgr 25 Client Workstation Windows</td>
+                              <td>Open file Mgr 25 Client Workstation Windows <a class="productInfoLink" id="product-id-3" href="javascript:;">Info</a></td>
                               <td class="text-center">10</td>
                               <td class="text-center"><span class="lightGrayText">0</span></td>
                               <td class="text-center">10</td>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="panel-footer">
                         <div class="pull-right">
-                            <span>5 Steps</span><a href="step1.html" class="btn btn-primary">Start: Select Quanitity &raquo;</a> 
+                            <span>3 Steps</span><a href="step1.html" class="btn btn-primary">Start: Select Quanitity &raquo;</a> 
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
                     </div>
                     <div class="panel-footer">
                         <div class="pull-right">
-                            <span>5 Steps</span><a href="step1.html" class="btn btn-primary">Start: Select Quanitity &raquo;</a> 
+                            <span>3 Steps</span><a href="step1.html" class="btn btn-primary">Start: Select Quanitity &raquo;</a> 
                         </div>
                     </div>
                 </div>
@@ -221,6 +221,59 @@
         </div>
     </div>
 
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Product Info</h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script type="text/html" id="loadingTmpl">
+        <% var loadingText = loadingText || 'loading...'; %>
+        <div class="loading">
+            <%= loadingText %>
+        </div>
+    </script>
+
+    <script type="text/html" id="productInfoTmpl">
+        <h5>Activated on <b><%= resp.activated_on %></b> by <b><%= resp.activated_by %></b></h5>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th width="35%">Activation Id</th>
+              <th width="25%">Bound to</th>
+              <th width="15%" class="text-center">Quantity</th>
+              <th width="10%" class="text-center">Units</th>
+              <th width="15%" class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0; i<resp.activated_licenses.length; i++){ %>
+                <tr>
+                  <td><%= resp.activated_licenses[i].activation_id %></td>
+                  <td><%= resp.activated_licenses[i].bound_to %></td>
+                  <td class="text-center"><%= resp.activated_licenses[i].quantity %></td>
+                  <td class="text-center"><%= resp.activated_licenses[i].units %></td>
+                  <td class="text-center">
+                    <a href="javascript:;" class="prodInfoIcon icons-mail"></a>
+                    <a href="javascript:;" class="prodInfoIcon icons-user"></a>
+                    <a href="javascript:;" class="prodInfoIcon icons-info"></a>
+                  </td>
+                </tr>
+            <% } %>
+          </tbody>
+        </table>
+    </script>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->

@@ -1,10 +1,6 @@
 @import "icons/*.png";
 @include all-icons-sprites;
 
-
-/*.icons-computer, .icons-copy, .icons-key {
-    background: url("/images/icons-sbaf0e2bdcf.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-}*/
 .icons-key, .icons-copy{
 	display: inline-block;
 	width: 24px;
@@ -41,4 +37,31 @@
 			margin-left: 10px;
 		}
 	}
+	.table > thead > tr > th, .table > thead > tr > td, 
+	.table > tbody > tr > th, .table > tbody > tr > td, 
+	.table > tfoot > tr > th, .table > tfoot > tr > td{
+		vertical-align: middle;
+	}
+}
+
+.prodInfoIcon{
+	padding: 0 3px;
+	display: inline-block;
+	&.icons-mail, &.icons-user{
+		width: 24px;
+		height: 24px;
+		vertical-align: middle;
+	}
+	&.icons-info{
+		width: 12px;
+		height: 24px;
+	}
+}
+
+.loading{
+	padding-left: 40px;
+	background: url("/images/ajax-loader.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	height: 32px;
+	line-height: 32px; 
 }
