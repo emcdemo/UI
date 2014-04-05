@@ -1,0 +1,44 @@
+@import "icons/*.png";
+@include all-icons-sprites;
+
+
+/*.icons-computer, .icons-copy, .icons-key {
+    background: url("/images/icons-sbaf0e2bdcf.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}*/
+.icons-key, .icons-copy{
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	vertical-align: middle;
+}
+.icons-computer{
+	display: inline-block;
+	width: 24px;
+	height: 14px;
+	vertical-align: middle;
+}
+
+.margin-top-0{
+	margin-top: 0px;
+}
+.lacNumber{
+	padding: 3px 5px;
+	border: 1px solid $gray-light;
+	border-radius: 5px;
+	display: inline-block;
+}
+.lightGrayText{
+	color: $gray-light;
+}
+
+.emc-panel{
+	table{
+		margin-bottom: 0px;
+	}
+	.panel-footer{
+		padding: 5px 15px;
+		a{
+			margin-left: 10px;
+		}
+	}
+}
