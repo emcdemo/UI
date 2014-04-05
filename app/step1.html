@@ -83,136 +83,67 @@
                             <h3 class="panel-title">Select Quantity</h3>
                         </div>
                         <div class="panel-body">
-                            <h2>Step 1 Select Quantity</h2>
-                            <br/>
-                            <nbr/>
-                            <br/>
-                            <nbr/>
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td colspan="2">Larry the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <br/>
-                            <nbr/>
-                            <br/>
-                            <nbr/>
-                            <form class="form-horizontal" role="form">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox">Remember me
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Sign in</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <br/>
-                            <nbr/>
-                            <br/>
-                            <nbr/>
-                            <table class="table table-condensed">
-                                <thead>
-                                    <tr>
-                                        <td><strong>Item</strong>
-                                        </td>
-                                        <td class="text-center"><strong>Price</strong>
-                                        </td>
-                                        <td class="text-center"><strong>Quantity</strong>
-                                        </td>
-                                        <td class="text-right"><strong>Totals</strong>
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
-                                    <tr>
-                                        <td>BS-200</td>
-                                        <td class="text-center">$10.99</td>
-                                        <td class="text-center">1</td>
-                                        <td class="text-right">$10.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td>BS-400</td>
-                                        <td class="text-center">$20.00</td>
-                                        <td class="text-center">3</td>
-                                        <td class="text-right">$60.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>BS-1000</td>
-                                        <td class="text-center">$600.00</td>
-                                        <td class="text-center">1</td>
-                                        <td class="text-right">$600.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="thick-line"></td>
-                                        <td class="thick-line"></td>
-                                        <td class="thick-line text-center"><strong>Subtotal</strong>
-                                        </td>
-                                        <td class="thick-line text-right">$670.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="no-line"></td>
-                                        <td class="no-line"></td>
-                                        <td class="no-line text-center"><strong>Shipping</strong>
-                                        </td>
-                                        <td class="no-line text-right">$15</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="no-line"></td>
-                                        <td class="no-line"></td>
-                                        <td class="no-line text-center"><strong>Total</strong>
-                                        </td>
-                                        <td class="no-line text-right">$685.99</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <h2>Step 1: Select Quantity</h2>
+                          <p class="help-block">Select the quantity of licenses you wish to activate for each product</p>
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Product</th>
+                              <th>Total Qty.</th>
+                              <th>Active</th>
+                              <th>Available</th>
+                              <th>Qty. to Activate </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Network Mod for Oracle CLT Oracle8 & later UX</td>
+                              <td>10</td>
+                              <td>0</td>
+                              <td>7</td>
+                              <td><select class="form-control">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select></td>
+                            </tr>    
+                             <tr>
+                              <td>Network Mod for Oracle CLT Oracle8 & later UX</td>
+                              <td>10</td>
+                              <td>0</td>
+                              <td>7</td>
+                              <td><select class="form-control">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select></td>
+                            </tr>    
+                             <tr>
+                              <td>Network Mod for Oracle CLT Oracle8 & later UX</td>
+                              <td>10</td>
+                              <td>0</td>
+                              <td>7</td>
+                              <td><select class="form-control">
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                </select></td>
+                            </tr>                          
+                          </tbody>
+                        </table>
                         </div>
                         <div class="panel-footer">
+                            <div class="pull-left">
+                                <a href="javascript:" class="btn">Back</a>
+                            </div>
                             <div class="pull-right">
-                                <a href="javascript:" class="btn btn-warning disabled">Prev</a>
+                                <a href="javascript:" class="btn btn-warning">Cancel</a>
                                 <a href="javascript:" class="btn btn-info">Next</a>
                             </div>
 
