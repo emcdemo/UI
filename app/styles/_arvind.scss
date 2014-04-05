@@ -1,0 +1,66 @@
+.btn-input {
+   display: block;
+}
+ 
+.btn-input .btn.form-control {
+    text-align: left;
+}
+ 
+.btn-input .btn.form-control span:first-child {
+   left: 10px;
+   overflow: hidden;
+   right: 25px;
+}
+ 
+.btn-input .btn.form-control .caret {
+   margin-top: -1px;
+   position: absolute;
+   right: 10px;
+   top: 50%;
+}
+
+.dropdown-menu
+{
+   width:100%;
+}
+
+.filter-list
+{
+   list-style: none;
+   padding-left: 0px;
+   height: 200px;
+   overflow-y: auto;
+   padding-top: 9px;
+}
+
+.selected-list
+{
+   list-style: none;
+   padding-left: 0px;
+   padding-top: 9px;
+   height: 197px;
+   overflow-y: auto;  
+}
+
+.glyphicon.glyphicon-remove
+{
+   cursor: pointer;
+}
+.no-padding
+{
+   padding:0px;
+}
+.selected-list li span,.filter-list li input
+{
+   margin-right: 9px; 
+}
+.selected-list li,.filter-list li
+{
+   padding: 5px; 
+   cursor: default;
+}
+
+.selected-list li:hover, .filter-list li:hover
+{
+   background: #eee;
+}
