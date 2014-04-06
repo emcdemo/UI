@@ -15,10 +15,6 @@ $border-radius-small : 0px;
 
 // bower:scss
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
-@import "pavan.scss";
-@import "arvind.scss";
-@import "naveen.scss";
-
 // endbower
 
 .browsehappy {
@@ -107,4 +103,179 @@ footer {
 {
     overflow:auto;
 }
+
+/*** -p- section  start ***/
+
+@import "icons/*.png";
+@include all-icons-sprites;
+
+.icons-key, .icons-copy{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+.icons-computer{
+  display: inline-block;
+  width: 24px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+.margin-top-0{
+  margin-top: 0px;
+}
+.lacNumber{
+  padding: 3px 5px;
+  border: 1px solid $gray-light;
+  border-radius: 5px;
+  display: inline-block;
+}
+.lightGrayText{
+  color: $gray-light;
+}
+
+.emc-panel{
+  table{
+    margin-bottom: 0px;
+  }
+  .panel-footer{
+    padding: 5px 15px;
+    a{
+      margin-left: 10px;
+    }
+  }
+  .table > thead > tr > th, .table > thead > tr > td, 
+  .table > tbody > tr > th, .table > tbody > tr > td, 
+  .table > tfoot > tr > th, .table > tfoot > tr > td{
+    vertical-align: middle;
+  }
+}
+
+.prodInfoIcon{
+  padding: 0 3px;
+  display: inline-block;
+  &.icons-mail, &.icons-user{
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+  }
+  &.icons-info{
+    width: 12px;
+    height: 24px;
+  }
+}
+
+.loading{
+  background: url("/images/ajax-loader.gif") center center no-repeat;
+  border: 0 none;
+  height: 32px;
+  line-height: 32px; 
+}
+/*** -p- section  end ***/
+
+/*** -n- section  start ***/
+.icons-database{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+.get-licenses-panel{
+  table thead{
+    background: none repeat scroll 0 0 #2C95DD;
+      color: #FFFFFF;
+  }
+  .panel-body{
+    padding: 0px;
+  }
+}
+/*** -n- section  end ***/
+
+/*** -a- section  start ***/
+.btn-input {
+   display: block;
+}
+ 
+.btn-input .btn.form-control {
+    text-align: left;
+}
+ 
+.btn-input .btn.form-control span:first-child {
+   left: 10px;
+   overflow: hidden;
+   right: 25px;
+}
+ 
+.btn-input .btn.form-control .caret {
+   margin-top: -1px;
+   position: absolute;
+   right: 10px;
+   top: 50%;
+}
+
+.dropdown-menu
+{
+   width:100%;
+}
+
+.filter-list
+{
+   list-style: none;
+   padding-left: 0px;
+   height: 200px;
+   overflow-y: auto;
+   padding-top: 9px;
+}
+
+.selected-list
+{
+   list-style: none;
+   padding-left: 0px;
+   padding-top: 9px;
+   height: 197px;
+   overflow-y: auto;  
+}
+
+.glyphicon.glyphicon-remove
+{
+   cursor: pointer;
+}
+.no-padding
+{
+   padding:0px;
+}
+.selected-list li span,.filter-list li input
+{
+   margin-right: 9px; 
+}
+.selected-list li,.filter-list li
+{
+   padding: 5px; 
+   cursor: default;
+}
+
+.selected-list li:hover, .filter-list li:hover
+{
+   background: #eee;
+}
+
+#toggle-steps
+{
+   margin-bottom: 2px;
+   margin-left: 14px;
+}
+
+#toggle-steps button
+{
+   font-size: 17px;
+   padding: 5px;
+}
+
+.disp-none
+{
+  display: none;
+}
+/*** -a- section  end ***/
 
