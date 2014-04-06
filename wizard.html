@@ -1,0 +1,131 @@
+<!DOCTYPE html><!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--><!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]--><!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]--><!--[if gt IE 8]><!--><html class=no-js><!--<![endif]--><head><meta charset=utf-8><title>EMC</title><meta name=description content=""><meta name=viewport content="width=device-width"><link rel="shortcut icon" href=/favicon.ico><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><!-- bower:css --><!-- endbower --><!-- endbuild --><link rel=stylesheet href=styles/f3d092e1.main.css><script src=scripts/vendor/10d160c6.modernizr.js></script><body><!--[if lt IE 9]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]--><div class="navbar navbar-inverse navbar-fixed-top" role=navigation><div class=container><div class=navbar-header><button type=button class=navbar-toggle data-toggle=collapse data-target=.navbar-collapse><span class=sr-only>Toggle navigation</span> <span class=icon-bar></span> <span class=icon-bar></span> <span class=icon-bar></span></button> <a class=navbar-brand href=index.html><img src=images/b5a5b52d.logo.png></a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href=javascript:>Welcome User</a></li><li><a href=javascript:>Glossary</a></li><li><a href=javascript:>Support</a></li><li><a href=javascript:>Logout</a></li></ul></div><!--/.nav-collapse --></div></div><div class=main><div class=container><div class="row row-offcanvas row-offcanvas-left"><div class="col-xs-6 col-sm-3 sidebar-offcanvas" id=sidebar role=navigation><div class=list-group><a href=javascript: class="list-group-item active">1. Select Quantity</a> <a href=javascript: class=list-group-item>2. Select Systems</a> <a href=javascript: class=list-group-item>3. Get License Keys</a></div></div><!--/span--><p class="pull-left visible-xs" id=toggle-steps><button type=button class="btn btn-warning btn-xs" data-toggle=offcanvas>Show Progress</button></p><div id=wrapper class="col-xs-12 col-sm-9"></div><div id=step1-contents class="col-xs-12 col-sm-9 steps-data"><div class="panel panel-primary emc-panel"><div class=panel-heading><h3 class=panel-title>Select Quantity</h3></div><div class=panel-body><h2>Step 1: Select Quantity</h2><p class=help-block>Select the quantity of licenses you wish to activate for each product</p><table class="table table-hover"><thead><tr><th><th>Product<th class=text-center>Total Qty.<th class=text-center>Active<th class=text-center>Available<th>Qty. to Activate<tbody><tr><td><input type=radio class=prod-sel name=prod-sel checked><td>Network Mod for Oracle CLT Oracle8 & later UX<td class=text-center>10<td class=text-center><span class=lightGrayText>0</span><td class=text-center>10<td><select class="form-control qty-to-act-picker" data-prodid=1><option>1<option>2<option>3<option>4<option>5</select><tr><td><input type=radio class=prod-sel name=prod-sel><td>Network Mod for Oracle CLT Oracle8 & later UX<td class=text-center>10<td class=text-center><span class=lightGrayText>0</span><td class=text-center>10<td><select class="form-control qty-to-act-picker" disabled data-prodid=2><option>1<option>2<option>3<option>4<option>5</select><tr><td><input type=radio class=prod-sel name=prod-sel><td>Network Mod for Oracle CLT Oracle8 & later UX<td class=text-center>10<td class=text-center><span class=lightGrayText>0</span><td class=text-center>10<td><select class="form-control qty-to-act-picker" disabled data-prodid=3><option>1<option>2<option>3<option>4<option>5</select></table></div><div class=panel-footer><div class=pull-left><a href=index.html class="btn btn-default">Back</a></div><div class=pull-right><a href=index.html class="btn btn-default">Cancel</a> <a href=javascript: data-nextid=step2 class="btn btn-primary next-step">Next: Select Systems &raquo;</a></div></div></div></div><!--/span--><div id=step2-contents class="col-xs-12 col-sm-9 disp-none steps-data"></div><div id=step3-contents class="col-xs-12 col-sm-9 disp-none steps-data"></div></div></div></div><!-- templates for next steps will be part of Initial load to save resources later on --><script type=text/html id=step2><div class="panel panel-primary emc-panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Select Systems</h3>
+                        </div>
+                        <div class="panel-body">
+        <h2>Step 2: Select Systems</h2>
+        <div class="alert alert-danger done">Oops! You have already selected the required number of systems</div>  
+        <div class="alert alert-danger incomplete">Oops! You have not selected the required number of systems</div>            
+          
+        <p class="help-block">For Tracking purposes, you can choose to bind a license to a machine.</p>
+        <p class="help-block">Select Systems from the site:</p>
+
+        <div class="btn-group btn-input clearfix">
+            <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+              <span data-bind="label">Select One</span> <span class="caret"></span>
+            </button>
+                <ul class="dropdown-menu" role="menu">
+                 <% for(var i=0; i< resp.length; i++){ %>
+                    <li class="sel_<%= resp[i].siteID %>"><a href="javascript:"><%= resp[i].city%>, <%=resp[i].country%>, <%=resp[i].provinceCode%>, <%=resp[i].pinCode%>  </a></li>
+                  <% } %>
+                </ul>
+        </div>
+        <hr />
+
+         <div class="row">
+                              <div class="col-md-9">
+                                <p class="help-block">Select <%= resp.selProdQty %> System(s) to bind to:</p>                                
+                                <p class="help-block" id="selectedSite"><strong>Please select a Site</strong></p>
+                              </div>
+                              <div class="col-md-3 text-right">
+                                <p class="help-block">Number of license(s)</p>
+                                <p class="help-block" id="selectedLicenses"><strong> <%= resp.selProdQty %></strong></p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                <input type="text" placeholder="Find a Machine" class="form-control" id="filter-list" disabled="disabled">
+                                <div class="panel panel-default">
+                                  <div class="panel-body no-padding">
+                                    <ul class="filter-list">
+                                       <% for(var i=0; i< resp.length; i++){                                        
+                                           for(var j=0; j< resp[i].systemList.length; j++){ 
+                                        %>
+                                          <li class="list_sel list_sel_<%= resp[i].siteID %> disp-none"><input type="checkbox" data-id="<%=resp[i].systemList[j].id%>" class="sel_system"> <label><%= resp[i].systemList[j].systemName  %></label> </li>
+                                       <% } }%>
+                                    </ul>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              <div class="col-md-6">
+                                <div class="panel panel-default">
+                                  <div class="panel-heading">
+                                    <h3 class="panel-title"><label id="selCount">0</label> of <%= resp.selProdQty %> System(s) selected</h3>
+                                  </div>
+                                  <div class="panel-body no-padding">
+                                    <ul class="selected-list" id="selectedList">  
+
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+
+        </div>
+       <div class="panel-footer">
+                            <div class="pull-left">
+                                <a href="wizard.html" class="btn btn-default">Back</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="index.html" class="btn btn-default">Cancel</a>
+                                <a href="javascript:" data-nextid="step3" class="btn btn-primary next-step">Next: Get License keys &raquo;</a>
+                            </div>
+
+                        </div>
+        </div></script><script type=text/html id=selectedTmpl><li><span data-id="<%= obj.id %>" class="glyphicon glyphicon-remove remove-item"></span> <%= obj.systemName %></li></script><script type=text/html id=loadingTmpl><% var loadingText = loadingText || 'loading...'; %>
+         <div class="panel panel-primary emc-panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Loading Next Step</h3>
+                        </div>
+                        <div class="panel-body">
+        <div class="loading"></div>
+        </div>
+        </div></script><script type=text/html id=step3><div class="panel panel-primary ems-panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Get License Keys</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h2>Step 3: Get License Keys</h2>
+                            <p class="help-block">Copy or email individual License keys, or download all keys to MS Excel file.</p>
+                            <% for(var i=0; i< resp.activated_licenses.length; i++){ var a = resp.activated_licenses[i];%>
+                            <div>
+                                <h4><span class="glyphicon glyphicon-inbox"></span> <%= a.bound_to %></h4>
+                                <div class="panel panel-default get-licenses-panel">
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <th width="50%">License</th>
+                                                <th width="15%">Quantity</th>
+                                                <th width="15%">Unit</th>
+                                                <th width="15%"></th>
+                                            </thead>
+                                            <tbody>
+                                                <td>
+                                                    <b><%=a.activation_id%></b>
+                                                    <div class="help-block">Networker mod for Oracle CLT Oracles8 & Later UX</div>
+                                                </td>
+                                                <td><%=a.quantity%></td>
+                                                <td><%=a.units %></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-envelope"></span> Email
+                                                    </button>
+                                                </td>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                         
+                        </div>
+                        <div class="panel-footer">                            
+                            <div class="pull-right">
+                                <a href="index.html" class="btn btn-primary">Done</a>                                
+                            </div>
+
+                        </div>
+                    </div></script><script src=scripts/3eda25cb.vendor.js></script><script src=scripts/036656e4.plugins.js></script><script src=scripts/c21cee60.main.js></script>
