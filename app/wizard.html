@@ -190,24 +190,24 @@
 
          <div class="row">
                               <div class="col-md-9">
-                                <p class="help-block">Select <%= resp.selProdQty %> Systems to bind to:</p>                                
+                                <p class="help-block">Select <%= resp.selProdQty %> System(s) to bind to:</p>                                
                                 <p class="help-block" id="selectedSite"><strong>Please select a Site</strong></p>
                               </div>
                               <div class="col-md-3 text-right">
-                                <p class="help-block">Number of licenses</p>
+                                <p class="help-block">Number of license(s)</p>
                                 <p class="help-block" id="selectedLicenses"><strong> <%= resp.selProdQty %></strong></p>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-6">
-                                <input type="text" placeholder="Find a Machine" class="form-control" id="filter-list">
+                                <input type="text" placeholder="Find a Machine" class="form-control" id="filter-list" disabled="disabled">
                                 <div class="panel panel-default">
                                   <div class="panel-body no-padding">
                                     <ul class="filter-list">
                                        <% for(var i=0; i< resp.length; i++){                                        
                                            for(var j=0; j< resp[i].systemList.length; j++){ 
                                         %>
-                                          <li class="list_sel list_sel_<%= resp[i].siteID %> disp-none"><input type="checkbox" data-ip="<%=resp[i].systemList[j].ipAddress%>" class="sel_system"> <%= resp[i].systemList[j].systemName  %> </li>
+                                          <li class="list_sel list_sel_<%= resp[i].siteID %> disp-none"><input type="checkbox" data-id="<%=resp[i].systemList[j].id%>" class="sel_system"> <label><%= resp[i].systemList[j].systemName  %></label> </li>
                                        <% } }%>
                                     </ul>
                                   </div>
@@ -217,10 +217,11 @@
                               <div class="col-md-6">
                                 <div class="panel panel-default">
                                   <div class="panel-heading">
-                                    <h3 class="panel-title">0 of <%= resp.selProdQty %> Systems selected</h3>
+                                    <h3 class="panel-title"><label id="selCount">0</label> of <%= resp.selProdQty %> System(s) selected</h3>
                                   </div>
                                   <div class="panel-body no-padding">
-                                    <ul class="selected-list">                                     
+                                    <ul class="selected-list" id="selectedList">  
+
                                     </ul>
                                   </div>
                                 </div>
@@ -239,6 +240,9 @@
 
                         </div>
         </div>
+    </script>
+    <script type="text/html" id="selectedTmpl">
+      <li><span data-id="<%= obj.id %>" class="glyphicon glyphicon-remove remove-item"></span> <%= obj.systemName %></li>
     </script>
      <script type="text/html" id="loadingTmpl">
         <% var loadingText = loadingText || 'loading...'; %>
@@ -330,7 +334,22 @@
                         </div>
                     </div>
     </script>
-
+    <div class="modal fade" id="errorModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Warning</h4>
+          </div>
+          <div class="modal-body">
+          <div class="alert alert-danger">Oops! You have already selected the required number of systems</div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
     <!-- build:js scripts/vendor.js -->

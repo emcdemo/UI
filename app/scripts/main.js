@@ -1,9 +1,7 @@
 'use strict';
 
 
-/************ temperory code for micro-templating *************/
-// Simple JavaScript Templating
-// John Resig - http://ejohn.org/ - MIT Licensed
+/************ micro-templating *************/
 var tmpl;
 (function(){
   var cache = {};
@@ -38,8 +36,10 @@ var tmpl;
     return data ? fn( data ) : fn;
   };
 })();
+/************ micro-templating *************/
+
 //selected product
-var selProd = {id : 0, qty : 0}, handleSteps, bindClick;
+var selProd = {id : 0, qty : 0, selected : 0}, handleSteps, bindEvents;
 $(document).ready(function () {
 	/*** Off canvas menu for Tablet potrait & Mobiles ***/
 	$('[data-toggle=offcanvas]').click(function () {
@@ -57,25 +57,11 @@ $(document).ready(function () {
 		$target.closest( '.btn-group' ).find( '[data-bind="label"]' ).text( $target.text() ).end().children( '.dropdown-toggle' ).dropdown( 'toggle' );
 		$('#selectedSite strong').text($target.text());
 		// toggle classes for displaying list
-		$(".list_sel").hide();
-		$('.list_'+$($target).attr("class").split(' ')[0]).show();
+		$(".list_sel").hide().removeClass('shown');
+		$('.list_'+$($target).attr("class").split(' ')[0]).show().addClass('shown');
+		$('#filter-list').prop('disabled', false).val('');
 		return false;
-	});
-
-	/*** Step 2 - FIlter functionality ***/
-	$('#filter-list').on('keyup', function () {
-		var srcText = $.trim($(this).val());
-		$('.filter-list li').each(function () {
-			if($(this).text().toLowerCase().indexOf(srcText) >= 0 )
-			{
-				$(this).show();
-			}
-			else
-			{
-				$(this).hide();
-			}
-		});
-	});
+	});	
 
 	// in index.html, functionality for the 'info' link available against product names
 	$('.productInfoLink').on('click', function(){
@@ -106,42 +92,99 @@ $(document).ready(function () {
 
 
 	/** logic for loading pages via ajax **/
-	bindClick = function (argument) {
+	bindEvents = function (argument) {
 		$('.next-step').click(function () {		
 			handleSteps(this);
 		});	
+		/** step 2 selecting machines from list **/
+		if($('.sel_system'))
+		{
+			$('.sel_system').on('click', function () {
+				if($(this).prop('checked') && parseInt(selProd.qty) === parseInt(selProd.selected))
+				{
+					$('#errorModal').modal('toggle');
+					return false;
+				}
+				
+				if(!$(this).prop('checked'))
+				{
+					selProd.selected -= 1;	
+					updateSelectedCount();
+					($($('[data-id='+$(this).data('id')+']').get(1)).parent().remove());
+				}
+				else
+				{
+					var obj = {};
+					obj.systemName = $(this).parent().find('label').text().trim();
+					obj.id = $(this).data('id');
+					$("#selectedList").append(tmpl('selectedTmpl', obj));
+					selProd.selected += 1;
+					updateSelectedCount();
+
+					// delete selected
+					$(".remove-item").on('click', function() {
+						var id = $(this).data('id');
+						$(this).parent().remove();
+						$('[data-id='+id+']').prop('checked', false);	
+						selProd.selected -= 1;
+						updateSelectedCount();					
+					});
+				}
+			});			
+
+		}
+		/*** Step 2 - FIlter functionality ***/
+		$('#filter-list').on('keyup', function () {
+			var srcText = $.trim($(this).val());
+			$('.filter-list li.shown').each(function () {
+				if($(this).text().toLowerCase().indexOf(srcText.toLowerCase()) >= 0 )
+				{
+					$(this).show();
+				}
+				else
+				{
+					$(this).hide();
+				}
+			});
+		});
+
+		var updateSelectedCount = function () {
+			$("#selCount").text(selProd.selected);
+		};
+
 	}
-	bindClick();
+	bindEvents();
 
 	handleSteps = function (argument) {
 		$('.steps-data').hide();
 		$('#wrapper').html(tmpl('loadingTmpl')).show();
 		selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
 		selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
-		var tmplId = typeof argument === 'object' ?  $(argument).data("nextid") : argument.replace('#','');			
+		var tmplId = typeof argument === 'object' ?  $(argument).data("nextid") : argument.replace('#','');	
+		/** update the active step in the side bar **/
+		$("#sidebar a").removeClass('active');
+		if(tmplId === 'step2')$($("#sidebar a").get(1)).addClass('active');
+		if(tmplId === 'step3')$($("#sidebar a").get(2)).addClass('active');
+		
 		/* temp delay to let user know that there is some communication with server */
 		setTimeout(function(){
 			$.ajax({
 				'url': 'data/systems.json',
 				'content-type': 'json',
-				'success': function(resp){	
-				$('#wrapper').hide();			
-				resp.selProdQty = selProd.qty;
-				console.log(resp);
+				'success': function(resp){						
+					$('#wrapper').hide();			
+					resp.selProdQty = selProd.qty;
 					$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
 						resp: resp
 					}));
 					$(location).attr("hash", "#"+tmplId);// url hashing
-					bindClick();
+					bindEvents();
 				}
 			});
 		}, 999);
 	}
 
-	/** step 2 selecting machines from list **/
-	$('.sel_system').on('click', function () {
-		
-	});
+	
  
 	/** URL hashing across pages for bookmarking and controlling steps via url **/
 	if($(location).attr('pathname').indexOf("wizard.html") > 0)
