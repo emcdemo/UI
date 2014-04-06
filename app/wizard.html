@@ -169,10 +169,13 @@
     <script type="text/html" id="step2">
      <div class="panel panel-primary emc-panel">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Select Quantity</h3>
+                            <h3 class="panel-title">Select Systems</h3>
                         </div>
                         <div class="panel-body">
         <h2>Step 2: Select Systems</h2>
+        <div class="alert alert-danger done">Oops! You have already selected the required number of systems</div>  
+        <div class="alert alert-danger incomplete">Oops! You have not selected the required number of systems</div>            
+          
         <p class="help-block">For Tracking purposes, you can choose to bind a license to a machine.</p>
         <p class="help-block">Select Systems from the site:</p>
 
@@ -263,9 +266,9 @@
                         <div class="panel-body">
                             <h2>Step 3: Get License Keys</h2>
                             <p class="help-block">Copy or email individual License keys, or download all keys to MS Excel file.</p>
-
+                            <% for(var i=0; i< resp.activated_licenses.length; i++){ var a = resp.activated_licenses[i];%>
                             <div>
-                                <h4><span class="glyphicon glyphicon-tasks"></span> System Twelve Name</h4>
+                                <h4><span class="glyphicon glyphicon-inbox"></span> <%= a.bound_to %></h4>
                                 <div class="panel panel-default get-licenses-panel">
                                     <div class="panel-body">
                                         <table class="table">
@@ -277,11 +280,11 @@
                                             </thead>
                                             <tbody>
                                                 <td>
-                                                    <b>EWOJ-7UKM-897Y-MKKD-897Y</b>
+                                                    <b><%=a.activation_id%></b>
                                                     <div class="help-block">Networker mod for Oracle CLT Oracles8 & Later UX</div>
                                                 </td>
-                                                <td>1</td>
-                                                <td>Seat</td>
+                                                <td><%=a.quantity%></td>
+                                                <td><%=a.units %></td>
                                                 <td>
                                                     <button type="button" class="btn btn-default">
                                                         <span class="glyphicon glyphicon-envelope"></span> Email
@@ -292,35 +295,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <br/>
-                            <div>
-                                <h4><span class="glyphicon glyphicon-tasks"></span> System Twelve Name</h4>
-                                <div class="panel panel-default get-licenses-panel">
-                                    <div class="panel-body">
-                                        <table class="table">
-                                            <thead>
-                                                <th width="50%">License</th>
-                                                <th width="15%">Quantity</th>
-                                                <th width="15%">Unit</th>
-                                                <th width="15%"></th>
-                                            </thead>
-                                            <tbody>
-                                                <td>
-                                                    <b>EWOJ-7UKM-897Y-MKKD-897Y</b>
-                                                    <div class="help-block">Networker mod for Oracle CLT Oracles8 & Later UX</div>
-                                                </td>
-                                                <td>1</td>
-                                                <td>Seat</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-default">
-                                                        <span class="glyphicon glyphicon-envelope"></span> Email
-                                                    </button>
-                                                </td>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            <% } %>
+                         
                         </div>
                         <div class="panel-footer">
                             <div class="pull-left">
@@ -334,22 +310,6 @@
                         </div>
                     </div>
     </script>
-    <div class="modal fade" id="errorModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><span class="glyphicon glyphicon-exclamation-sign"></span> Warning</h4>
-          </div>
-          <div class="modal-body">
-          <div class="alert alert-danger">Oops! You have already selected the required number of systems</div>            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
 
     <!-- build:js scripts/vendor.js -->

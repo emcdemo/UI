@@ -99,10 +99,12 @@ $(document).ready(function () {
 		/** step 2 selecting machines from list **/
 		if($('.sel_system'))
 		{
+			$('.alert.alert-danger.done,.alert.alert-danger.incomplete').hide();
 			$('.sel_system').on('click', function () {
+				$('.alert.alert-danger.done,.alert.alert-danger.incomplete').hide();
 				if($(this).prop('checked') && parseInt(selProd.qty) === parseInt(selProd.selected))
 				{
-					$('#errorModal').modal('toggle');
+					$('.alert.alert-danger.done').show();
 					return false;
 				}
 				
@@ -156,22 +158,41 @@ $(document).ready(function () {
 	bindEvents();
 
 	handleSteps = function (argument) {
+		var tmplId = typeof argument === 'object' ?  $(argument).data("nextid") : argument.replace('#',''),
+		jsonURL;	
+		if(tmplId === 'step2')
+		{
+			// validation if needed & return false if fails
+			jsonURL = 'data/systems.json';
+			$($("#sidebar a").get(1)).addClass('active');
+		}
+		else if(tmplId === 'step3'){
+			// validation if needed & return false if fails
+			$('.alert.alert-danger.incomplete').hide();
+			if(parseInt(selProd.qty) !== parseInt(selProd.selected))
+			{
+				$('.alert.alert-danger.incomplete').show();
+				return false;
+			}
+			jsonURL = 'data/licenses.json';
+			$($("#sidebar a").get(2)).addClass('active');
+		}
+
 		$('.steps-data').hide();
 		$('#wrapper').html(tmpl('loadingTmpl')).show();
 		selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
-		selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
-		var tmplId = typeof argument === 'object' ?  $(argument).data("nextid") : argument.replace('#','');	
+		selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");		
 		/** update the active step in the side bar **/
 		$("#sidebar a").removeClass('active');
-		if(tmplId === 'step2')$($("#sidebar a").get(1)).addClass('active');
-		if(tmplId === 'step3')$($("#sidebar a").get(2)).addClass('active');
+
 		
 		/* temp delay to let user know that there is some communication with server */
 		setTimeout(function(){
 			$.ajax({
-				'url': 'data/systems.json',
+				'url': jsonURL,
 				'content-type': 'json',
-				'success': function(resp){						
+				'success': function(resp){		
+					console.log(resp);				
 					$('#wrapper').hide();			
 					resp.selProdQty = selProd.qty;
 					$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
