@@ -4,14 +4,13 @@
 /************ micro-templating *************/
 var tmpl;
 (function(){
-  var cache = {};
- 
-  tmpl = function tmpl(str, data){
+	var cache = {};
+	tmpl = function tmpl(str, data){
     // Figure out if we're getting a template, or if we need to
     // load the template - and be sure to cache the result.
-    var fn = !/\W/.test(str) ?
-      cache[str] = cache[str] ||
-        tmpl(document.getElementById(str).innerHTML) :
+		var fn = !/\W/.test(str) ?
+		cache[str] = cache[str] ||
+		tmpl(document.getElementById(str).innerHTML) :
      
       // Generate a reusable function that will serve as a template
       // generator (and which will be cached).
@@ -29,12 +28,11 @@ var tmpl;
           .replace(/\t=(.*?)%>/g, "',$1,'")
           .split("\t").join("');")
           .split("%>").join("p.push('")
-          .split("\r").join("\\'")
-      + "');}return p.join('');");
+          .split("\r").join("\\'") + "');}return p.join('');");
    
-    // Provide some basic currying to the user
-    return data ? fn( data ) : fn;
-  };
+		// Provide some basic currying to the user
+		return data ? fn( data ) : fn;
+	};
 })();
 /************ micro-templating *************/
 
@@ -61,14 +59,13 @@ $(document).ready(function () {
 		$('.list_'+$($target).attr("class").split(' ')[0]).show().addClass('shown');
 		$('#filter-list').prop('disabled', false).val('');
 		return false;
-	});	
+	});
 
 	// in index.html, functionality for the 'info' link available against product names
 	$('.productInfoLink').on('click', function(){
 		$('#infoModal').modal();
 		$('#infoModal .modal-body').html(tmpl('loadingTmpl'));
 		
-		var prodId = this.id;
 		/* temp delay to let user know that there is some communication with server */
 		setTimeout(function(){
 			$.ajax({
@@ -92,10 +89,10 @@ $(document).ready(function () {
 
 
 	/** logic for loading pages via ajax **/
-	bindEvents = function (argument) {
-		$('.next-step').click(function () {		
+	bindEvents = function () {
+		$('.next-step').click(function () {
 			handleSteps(this);
-		});	
+		});
 		/** step 2 selecting machines from list **/
 		if($('.sel_system'))
 		{
@@ -110,7 +107,7 @@ $(document).ready(function () {
 				
 				if(!$(this).prop('checked'))
 				{
-					selProd.selected -= 1;	
+					selProd.selected -= 1;
 					updateSelectedCount();
 					($($('[data-id='+$(this).data('id')+']').get(1)).parent().remove());
 				}
@@ -127,12 +124,12 @@ $(document).ready(function () {
 					$(".remove-item").on('click', function() {
 						var id = $(this).data('id');
 						$(this).parent().remove();
-						$('[data-id='+id+']').prop('checked', false);	
+						$('[data-id='+id+']').prop('checked', false);
 						selProd.selected -= 1;
-						updateSelectedCount();					
+						updateSelectedCount();
 					});
 				}
-			});			
+			});
 
 		}
 		/*** Step 2 - FIlter functionality ***/
@@ -154,16 +151,17 @@ $(document).ready(function () {
 			$("#selCount").text(selProd.selected);
 		};
 
-	}
+	};
 	bindEvents();
 
 	handleSteps = function (argument) {
 		var tmplId = typeof argument === 'object' ?  $(argument).data("nextid") : argument.replace('#',''),
-		jsonURL;	
+		jsonURL;
 		if(tmplId === 'step2')
 		{
 			// validation if needed & return false if fails
 			jsonURL = 'data/systems.json';
+			$("#sidebar a").removeClass('active');
 			$($("#sidebar a").get(1)).addClass('active');
 		}
 		else if(tmplId === 'step3'){
@@ -175,15 +173,15 @@ $(document).ready(function () {
 				return false;
 			}
 			jsonURL = 'data/licenses.json';
+			$("#sidebar a").removeClass('active');
 			$($("#sidebar a").get(2)).addClass('active');
 		}
 
 		$('.steps-data').hide();
 		$('#wrapper').html(tmpl('loadingTmpl')).show();
 		selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
-		selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");		
+		selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
 		/** update the active step in the side bar **/
-		$("#sidebar a").removeClass('active');
 
 		
 		/* temp delay to let user know that there is some communication with server */
@@ -191,9 +189,8 @@ $(document).ready(function () {
 			$.ajax({
 				'url': jsonURL,
 				'content-type': 'json',
-				'success': function(resp){		
-					console.log(resp);				
-					$('#wrapper').hide();			
+				'success': function(resp){
+					$('#wrapper').hide();
 					resp.selProdQty = selProd.qty;
 					$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
 						resp: resp
@@ -203,7 +200,7 @@ $(document).ready(function () {
 				}
 			});
 		}, 999);
-	}
+	};
 
 	
  
@@ -213,7 +210,7 @@ $(document).ready(function () {
 		var hash = $(location).attr("hash");
 		
 		if (!hash) { $(location).attr("hash", "#step1"); window.location.reload(true); }
-		else if(hash === '#step2' || hash === '#step3') handleSteps(hash);
+		else if(hash === '#step2' || hash === '#step3') {handleSteps(hash);}
 	}
 });
 
