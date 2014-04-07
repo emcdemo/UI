@@ -55,9 +55,9 @@ $(document).ready(function () {
 		$target.closest( '.btn-group' ).find( '[data-bind="label"]' ).text( $target.text() ).end().children( '.dropdown-toggle' ).dropdown( 'toggle' );
 		$('#selectedSite strong').text($target.text());
 		// toggle classes for displaying list
-		$(".list_sel").hide().removeClass('shown');
-		$('.list_'+$($target).attr("class").split(' ')[0]).show().addClass('shown');
-		$('#filter-list').prop('disabled', false).val('');
+		$(this).parents('.selection-parent').find(".list_sel").hide().removeClass('shown');
+		$(this).parents('.selection-parent').find('.list_'+$($target).attr("class").split(' ')[0]).show().addClass('shown');
+		$(this).parents('.selection-parent').find('.filter-list-txt').prop('disabled', false).val('');
 		return false;
 	});
 
@@ -81,13 +81,6 @@ $(document).ready(function () {
 		}, 999);
 	});
 
-	/** Step 1 - checked radio boxes == enabled qty to activate **/
-	$('.prod-sel').on('change', function () {
-		$('.qty-to-act-picker').prop('disabled', true);
-		$(this).closest('tr').find('.qty-to-act-picker').prop('disabled', false);
-	});
-
-
 	/** logic for loading pages via ajax **/
 	bindEvents = function () {
 		$('.next-step').click(function () {
@@ -99,16 +92,19 @@ $(document).ready(function () {
 			$('.alert.alert-danger.done,.alert.alert-danger.incomplete').hide();
 			$('.sel_system').on('click', function () {
 				$('.alert.alert-danger.done,.alert.alert-danger.incomplete').hide();
-				if($(this).prop('checked') && parseInt(selProd.qty) === parseInt(selProd.selected))
+				var par = $(this).parents('.selection-parent'),
+					exp = par.find('.prod-sel-qty-exp'),
+					act = par.find('.prod-sel-qty-act');
+
+				if($(this).prop('checked') && parseInt(exp.val()) === parseInt(act.val()))
 				{
 					$('.alert.alert-danger.done').show();
 					return false;
 				}
-				
-				if(!$(this).prop('checked'))
+				if(!$(this).is(":checked"))
 				{
-					selProd.selected -= 1;
-					updateSelectedCount();
+					act.val(parseInt(act.val()) - 1);
+					updateSelectedCount(par, act.val());
 					($($('[data-id='+$(this).data('id')+']').get(1)).parent().remove());
 				}
 				else
@@ -116,26 +112,26 @@ $(document).ready(function () {
 					var obj = {};
 					obj.systemName = $(this).parent().find('label').text().trim();
 					obj.id = $(this).data('id');
-					$("#selectedList").append(tmpl('selectedTmpl', obj));
-					selProd.selected += 1;
-					updateSelectedCount();
+					par.find(".selected-list").append(tmpl('selectedTmpl', obj));
+					act.val(parseInt(act.val()) + 1);
+					updateSelectedCount(par, act.val());
 
 					// delete selected
 					$(".remove-item").on('click', function() {
 						var id = $(this).data('id');
 						$(this).parent().remove();
-						$('[data-id='+id+']').prop('checked', false);
-						selProd.selected -= 1;
-						updateSelectedCount();
+						par.find('[data-id='+id+']').prop('checked', false);
+						act.val(parseInt(act.val()) - 1);
+						updateSelectedCount(par, act.val());
 					});
 				}
 			});
 
 		}
 		/*** Step 2 - FIlter functionality ***/
-		$('#filter-list').on('keyup', function () {
+		$('.filter-list-txt').on('keyup', function () {
 			var srcText = $.trim($(this).val());
-			$('.filter-list li.shown').each(function () {
+			$(this).parents('.selection-parent').find('li.shown').each(function () {
 				if($(this).text().toLowerCase().indexOf(srcText.toLowerCase()) >= 0 )
 				{
 					$(this).show();
@@ -147,8 +143,8 @@ $(document).ready(function () {
 			});
 		});
 
-		var updateSelectedCount = function () {
-			$("#selCount").text(selProd.selected);
+		var updateSelectedCount = function ($par, val) {
+			$par.find(".selCount").text(val);
 		};
 
 		$("#tnc").on("change", function () {
@@ -161,6 +157,31 @@ $(document).ready(function () {
 				$("#step4Next").addClass("disabled");
 			}
 		});
+		/** Step 1 - checked checkboxes boxes == enabled qty to activate **/
+		$('.prod-sel').on('change', function () {
+
+			//$('.qty-to-act-picker').prop('disabled', true);
+
+			if($(this).is(":checked"))
+			{
+				$(this).closest('tr').find('.qty-to-act-picker').prop('disabled', false);
+			}
+			else
+			{
+				$(this).closest('tr').find('.qty-to-act-picker').prop('disabled', true);
+			}
+
+			if(!	$('.prod-sel').is(":checked"))
+			{
+				$('[data-nextid=step2]').addClass('disabled');
+			}
+			else
+			{
+				$('[data-nextid=step2]').removeClass('disabled');
+			}
+			
+		});
+
 
 	};
 	bindEvents();
@@ -174,18 +195,38 @@ $(document).ready(function () {
 			jsonURL = $("#step2JSONUrl").val().trim();
 			$("#sidebar a").removeClass('active');
 			$($("#sidebar a").get(1)).addClass('active');
-			selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
-			selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
+			selProd.selectedProds = [];
+
+			//selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
+			//selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
+
+			$(".prod-sel").each(function () {
+				var $cb = $(this), obj = {};
+				if($cb.is(":checked"))
+				{
+					obj.name = $($cb.parents('tr').find('td').get(1)).text().trim();
+					obj.qty = $cb.parents('tr').find('.qty-to-act-picker').val();
+					selProd.selectedProds.push(obj);
+				}
+			});
 		}
 		else if(tmplId === 'step3')
 		{
 			// validation if needed & return false if fails
 			$('.alert.alert-danger.incomplete').hide();
-			if(parseInt(selProd.qty) !== parseInt(selProd.selected))
-			{
-				$('.alert.alert-danger.incomplete').show();
+			$('.error-holder.panel-danger').addClass('panel-default').removeClass('panel-danger');
+			$(".prod-sel-qty-exp").each(function () {
+				var act = parseInt($(this).val().trim()),
+					exp = parseInt($(this).next().val().trim());
+
+				if(act !== exp)
+				{
+					$('.alert.alert-danger.incomplete').show();
+					$(this).parents('.error-holder').removeClass('panel-default').addClass('panel-danger');
+				}
 				return false;
-			}
+			});
+			
 			selProd.selectedSystems = [];
 			$("#selectedList li").each(function () {
 				var obj = {};
@@ -225,6 +266,10 @@ $(document).ready(function () {
 					'success': function(resp){
 						$('#wrapper').hide();
 						resp.selProdQty = selProd.qty;
+						if(selProd.selectedProds)
+						{
+							resp.selectedProds = selProd.selectedProds;
+						}
 						$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
 							resp: resp
 						}));

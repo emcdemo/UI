@@ -100,7 +100,7 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td><input type="radio" class="prod-sel" name="prod-sel" checked="checked"></td>
+                              <td><input type="checkbox" class="prod-sel" name="prod-sel" checked="checked"></td>
                               <td>Network Mod for Oracle CLT Oracle8 & later UX</td>
                               <td class="text-center">10</td>
                               <td class="text-center"><span class="lightGrayText">0</span></td>
@@ -114,8 +114,8 @@
                                 </select></td>
                             </tr>    
                              <tr>
-                              <td><input type="radio" class="prod-sel" name="prod-sel"></td>
-                              <td>Network Mod for Oracle CLT Oracle8 & later UX</td>
+                              <td><input type="checkbox" class="prod-sel" name="prod-sel"></td>
+                              <td>Open file mgr 25</td>
                               <td class="text-center">10</td>
                               <td class="text-center"><span class="lightGrayText">0</span></td>
                               <td class="text-center">10</td>
@@ -128,8 +128,8 @@
                                 </select></td>
                             </tr>    
                              <tr>
-                              <td><input type="radio" class="prod-sel" name="prod-sel"></td>
-                              <td>Network Mod for Oracle CLT Oracle8 & later UX</td>
+                              <td><input type="checkbox" class="prod-sel" name="prod-sel"></td>
+                              <td>Powerpath VE unserved Licenses</td>
                               <td class="text-center">10</td>
                               <td class="text-center"><span class="lightGrayText">0</span></td>
                               <td class="text-center">10</td>
@@ -184,7 +184,23 @@
           
         <p class="help-block">For Tracking purposes, you can choose to bind a license to a machine.</p>
         <p class="help-block">Select Systems from the site:</p>
+<div class="panel-group" id="accordion">
 
+<% for(var k=0; k< resp.selectedProds.length; k++){%>
+ <div class="panel panel-default error-holder">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= k %>">
+          <%=resp.selectedProds[k].name %>
+        </a>
+      </h4>
+    </div>
+    <% if(k == 0) {%>
+    <div id="collapse_<%= k %>" class="panel-collapse collapse in">
+    <% } else {%>
+      <div id="collapse_<%= k %>" class="panel-collapse collapse">
+    <% } %>
+<div class="panel-body selection-parent">
         <div class="btn-group btn-input clearfix">
             <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
               <span data-bind="label">Select One</span> <span class="caret"></span>
@@ -199,17 +215,17 @@
 
          <div class="row">
                               <div class="col-md-9">
-                                <p class="help-block">Select <%= resp.selProdQty %> System(s) to bind to:</p>                                
+                                <p class="help-block">Select <%= resp.selectedProds[k].qty %> System(s) to bind to:</p>                                
                                 <p class="help-block" id="selectedSite"><strong>Please select a Site</strong></p>
                               </div>
                               <div class="col-md-3 text-right">
                                 <p class="help-block">Number of license(s)</p>
-                                <p class="help-block" id="selectedLicenses"><strong> <%= resp.selProdQty %></strong></p>
+                                <p class="help-block" id="selectedLicenses"><strong> <%= resp.selectedProds[k].qty %></strong></p>
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-6">
-                                <input type="text" placeholder="Find a Machine" class="form-control" id="filter-list" disabled="disabled">
+                                <input type="text" placeholder="Find a Machine" class="form-control filter-list-txt" disabled="disabled">
                                 <div class="panel panel-default">
                                   <div class="panel-body no-padding">
                                     <ul class="filter-list">
@@ -226,17 +242,24 @@
                               <div class="col-md-6">
                                 <div class="panel panel-default">
                                   <div class="panel-heading">
-                                    <h3 class="panel-title"><label id="selCount">0</label> of <%= resp.selProdQty %> System(s) selected</h3>
+                                    <h3 class="panel-title"><label class="selCount">0</label> of <%= resp.selectedProds[k].qty %> System(s) selected</h3>
                                   </div>
                                   <div class="panel-body no-padding">
-                                    <ul class="selected-list" id="selectedList">  
+                                    <ul class="selected-list">  
 
                                     </ul>
                                   </div>
                                 </div>
                               </div>
                           </div>
+                          <input type="hidden" id="prod_exp_<%= k %>" class="prod-sel-qty-exp" value="<%= resp.selectedProds[k].qty %>">
+                          <input type="hidden" id="prod_act_<%= k %>" class="prod-sel-qty-act" value="0">
 
+          </div>
+          </div>
+
+          </div>
+<% } %>
         </div>
        <div class="panel-footer">
                             <div class="pull-left">
