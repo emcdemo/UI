@@ -69,7 +69,7 @@ $(document).ready(function () {
 		/* temp delay to let user know that there is some communication with server */
 		setTimeout(function(){
 			$.ajax({
-				'url': 'data/licenses.json',
+				'url': $("#licJSONUrl").val().trim(),
 				'content-type': 'json',
 				'success': function(resp){
 					$('#infoModal .modal-title').html(resp.product_name);
@@ -151,6 +151,17 @@ $(document).ready(function () {
 			$("#selCount").text(selProd.selected);
 		};
 
+		$("#tnc").on("change", function () {
+			if($(this).is(":checked"))
+			{
+				$("#step4Next").removeClass("disabled");
+			}
+			else
+			{
+				$("#step4Next").addClass("disabled");
+			}
+		});
+
 	};
 	bindEvents();
 
@@ -160,11 +171,14 @@ $(document).ready(function () {
 		if(tmplId === 'step2')
 		{
 			// validation if needed & return false if fails
-			jsonURL = 'data/systems.json';
+			jsonURL = $("#step2JSONUrl").val().trim();
 			$("#sidebar a").removeClass('active');
 			$($("#sidebar a").get(1)).addClass('active');
+			selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
+			selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
 		}
-		else if(tmplId === 'step3'){
+		else if(tmplId === 'step3')
+		{
 			// validation if needed & return false if fails
 			$('.alert.alert-danger.incomplete').hide();
 			if(parseInt(selProd.qty) !== parseInt(selProd.selected))
@@ -172,33 +186,62 @@ $(document).ready(function () {
 				$('.alert.alert-danger.incomplete').show();
 				return false;
 			}
-			jsonURL = 'data/licenses.json';
+			selProd.selectedSystems = [];
+			$("#selectedList li").each(function () {
+				var obj = {};
+				obj.sysName = $(this).text().trim();
+				selProd.selectedSystems.push(obj);
+			});
+
 			$("#sidebar a").removeClass('active');
 			$($("#sidebar a").get(2)).addClass('active');
+		}
+		else if(tmplId === 'step4')
+		{
+			// validation if needed & return false if fails
+			jsonURL = $("#step4JSONUrl").val().trim();
+			$("#sidebar a").removeClass('active');
+			$($("#sidebar a").get(3)).addClass('active');
+		}
+		else if(tmplId === 'step5'){
+			// validation if needed & return false if fails			
+			jsonURL = $("#step5JSONUrl").val().trim();
+			$("#sidebar a").removeClass('active');
+			$($("#sidebar a").get(4)).addClass('active');
 		}
 
 		$('.steps-data').hide();
 		$('#wrapper').html(tmpl('loadingTmpl')).show();
-		selProd.qty = $(".qty-to-act-picker").not(":disabled").val();
-		selProd.id = $(".qty-to-act-picker").not(":disabled").data("prodid");
 		/** update the active step in the side bar **/
 
 		
 		/* temp delay to let user know that there is some communication with server */
 		setTimeout(function(){
-			$.ajax({
-				'url': jsonURL,
-				'content-type': 'json',
-				'success': function(resp){
-					$('#wrapper').hide();
-					resp.selProdQty = selProd.qty;
-					$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
-						resp: resp
-					}));
-					$(location).attr("hash", "#"+tmplId);// url hashing
-					bindEvents();
-				}
-			});
+			if(jsonURL)
+			{
+				$.ajax({
+					'url': jsonURL,
+					'content-type': 'json',
+					'success': function(resp){
+						$('#wrapper').hide();
+						resp.selProdQty = selProd.qty;
+						$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
+							resp: resp
+						}));
+						$(location).attr("hash", "#"+tmplId);// url hashing
+						bindEvents();
+					}
+				});
+			}
+			else
+			{
+				$('#wrapper').hide();
+				$('#'+tmplId+'-contents').show().html(tmpl(tmplId, {
+					resp: selProd
+				}));
+				$(location).attr("hash", "#"+tmplId);// url hashing
+				bindEvents();
+			}
 		}, 999);
 	};
 
@@ -210,9 +253,8 @@ $(document).ready(function () {
 		var hash = $(location).attr("hash");
 		
 		if (!hash) { $(location).attr("hash", "#step1"); window.location.reload(true); }
-		else if(hash === '#step2' || hash === '#step3') {handleSteps(hash);}
+		else if(hash === '#step2' || hash === '#step3' || hash === '#step4' || hash === '#step5') {handleSteps(hash);}
 	}
 });
-
 
 
