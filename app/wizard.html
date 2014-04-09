@@ -47,6 +47,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="javascript:">Welcome User</a>
                     </li>
+                    <li><a href="dashboard.html">Dashboard</a>
+                    </li>
                     <li><a href="javascript:">Glossary</a>
                     </li>
                     <li><a href="javascript:">Support</a>
@@ -186,41 +188,41 @@
         <p class="help-block">Select Systems from the site:</p>
 <div class="panel-group" id="accordion">
 
-<% for(var k=0; k< resp.selectedProds.length; k++){%>
+[% for(var k=0; k< resp.selectedProds.length; k++){%]
  <div class="panel panel-default error-holder">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= k %>">
-          <%=resp.selectedProds[k].name %>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_[%= k %]">
+          [%=resp.selectedProds[k].name %]
         </a>
       </h4>
     </div>
-    <% if(k == 0) {%>
-    <div id="collapse_<%= k %>" class="panel-collapse collapse in">
-    <% } else {%>
-      <div id="collapse_<%= k %>" class="panel-collapse collapse">
-    <% } %>
+    [% if(k == 0) {%]
+    <div id="collapse_[%= k %]" class="panel-collapse collapse in">
+    [% } else {%]
+      <div id="collapse_[%= k %]" class="panel-collapse collapse">
+    [% } %]
 <div class="panel-body selection-parent">
         <div class="btn-group btn-input clearfix">
             <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
               <span data-bind="label">Select One</span> <span class="caret"></span>
             </button>
                 <ul class="dropdown-menu" role="menu">
-                 <% for(var i=0; i< resp.length; i++){ %>
-                    <li class="sel_<%= resp[i].siteID %>"><a href="javascript:"><%= resp[i].city%>, <%=resp[i].country%>, <%=resp[i].provinceCode%>, <%=resp[i].pinCode%>  </a></li>
-                  <% } %>
+                 [% for(var i=0; i< resp.length; i++){ %]
+                    <li class="sel_[%= resp[i].siteID %]"><a href="javascript:">[%= resp[i].city%], [%=resp[i].country%], [%=resp[i].provinceCode%], [%=resp[i].pinCode%]  </a></li>
+                  [% } %]
                 </ul>
         </div>
         <hr />
 
          <div class="row">
                               <div class="col-md-9">
-                                <p class="help-block">Select <%= resp.selectedProds[k].qty %> System(s) to bind to:</p>                                
+                                <p class="help-block">Select [%= resp.selectedProds[k].qty %] System(s) to bind to:</p>                                
                                 <p class="help-block" id="selectedSite"><strong>Please select a Site</strong></p>
                               </div>
                               <div class="col-md-3 text-right">
                                 <p class="help-block">Number of license(s)</p>
-                                <p class="help-block" id="selectedLicenses"><strong> <%= resp.selectedProds[k].qty %></strong></p>
+                                <p class="help-block" id="selectedLicenses"><strong> [%= resp.selectedProds[k].qty %]</strong></p>
                               </div>
                           </div>
                           <div class="row">
@@ -229,11 +231,11 @@
                                 <div class="panel panel-default">
                                   <div class="panel-body no-padding">
                                     <ul class="filter-list">
-                                       <% for(var i=0; i< resp.length; i++){                                        
+                                       [% for(var i=0; i< resp.length; i++){                                        
                                            for(var j=0; j< resp[i].systemList.length; j++){ 
-                                        %>
-                                          <li class="list_sel list_sel_<%= resp[i].siteID %> disp-none"><input type="checkbox" data-id="<%=resp[i].systemList[j].id%>" class="sel_system"> <label><%= resp[i].systemList[j].systemName  %></label> </li>
-                                       <% } }%>
+                                        %]
+                                          <li class="list_sel list_sel_[%= resp[i].siteID %] disp-none"><input type="checkbox" data-id="[%=resp[i].systemList[j].id%]" class="sel_system"> <label>[%= resp[i].systemList[j].systemName  %]</label> </li>
+                                       [% } }%]
                                     </ul>
                                   </div>
                                 </div>
@@ -242,7 +244,7 @@
                               <div class="col-md-6">
                                 <div class="panel panel-default">
                                   <div class="panel-heading">
-                                    <h3 class="panel-title"><label class="selCount">0</label> of <%= resp.selectedProds[k].qty %> System(s) selected</h3>
+                                    <h3 class="panel-title"><label class="selCount">0</label> of [%= resp.selectedProds[k].qty %] System(s) selected</h3>
                                   </div>
                                   <div class="panel-body no-padding">
                                     <ul class="selected-list">  
@@ -252,14 +254,14 @@
                                 </div>
                               </div>
                           </div>
-                          <input type="hidden" id="prod_exp_<%= k %>" class="prod-sel-qty-exp" value="<%= resp.selectedProds[k].qty %>">
-                          <input type="hidden" id="prod_act_<%= k %>" class="prod-sel-qty-act" value="0">
+                          <input type="hidden" id="prod_exp_[%= k %]" class="prod-sel-qty-exp" value="[%= resp.selectedProds[k].qty %]">
+                          <input type="hidden" id="prod_act_[%= k %]" class="prod-sel-qty-act" value="0">
 
           </div>
           </div>
 
           </div>
-<% } %>
+[% } %]
         </div>
        <div class="panel-footer">
                             <div class="pull-left">
@@ -274,10 +276,10 @@
         </div>
     </script>
     <script type="text/html" id="selectedTmpl">
-      <li><span data-id="<%= obj.id %>" class="glyphicon glyphicon-remove remove-item"></span> <%= obj.systemName %></li>
+      <li><span data-id="[%= obj.id %]" class="glyphicon glyphicon-remove remove-item"></span> [%= obj.systemName %]</li>
     </script>
      <script type="text/html" id="loadingTmpl">
-        <% var loadingText = loadingText || 'loading...'; %>
+        [% var loadingText = loadingText || 'loading...'; %]
          <div class="panel panel-primary emc-panel">
                         <div class="panel-heading">
                             <h3 class="panel-title">Loading Next Step</h3>
@@ -297,11 +299,11 @@
                              <h2>Step 3: Entering Locking IDs</h2>
                               <p class="help-block">Enter or verify the locking IDs for each system below.</p>
                               <hr/>
-                               <% for(var i=0; i< resp.selectedSystems.length; i++){ var a = resp.selectedSystems[i];   %>
-                                  <h4><span class="glyphicon glyphicon-inbox"></span> <%= a.name %></h4>
+                               [% for(var i=0; i< resp.selectedSystems.length; i++){ var a = resp.selectedSystems[i];   %]
+                                  <h4><span class="glyphicon glyphicon-inbox"></span> [%= a.name %]</h4>
                                   <p class="help-block">Mac address</p>
                                   <input type="text" class="form-control " placeholder="Enter the MAC address of this machine">
-                                <% } %>
+                                [% } %]
 
                         </div>
                               <div class="panel-footer">
@@ -326,9 +328,9 @@
                         <div class="panel-body">
                             <h2>Step 4: Review Activations</h2>
                             <p class="help-block">Please review, then click "Activate Licenses" to generate  License keys</p>
-                            <% for(var i=0; i< resp.activated_licenses.length; i++){ var a = resp.activated_licenses[i];%>
+                            [% for(var i=0; i< resp.activated_licenses.length; i++){ var a = resp.activated_licenses[i];%]
                             <div>
-                                <h4><span class="glyphicon glyphicon-inbox"></span> <%= a.bound_to %></h4>
+                                <h4><span class="glyphicon glyphicon-inbox"></span> [%= a.bound_to %]</h4>
                                 <div class="panel panel-default get-licenses-panel">
                                     <div class="panel-body">
                                         <table class="table">
@@ -343,15 +345,15 @@
                                                 <td>                                                   
                                                     <div class="help-block">Networker mod for Oracle CLT Oracles8 & Later UX</div>
                                                 </td>
-                                                <td><%=a.quantity%></td>
-                                                <td><%=a.units %></td>                                             
+                                                <td>[%=a.quantity%]</td>
+                                                <td>[%=a.units %]</td>                                             
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
+                            [% } %]
                           <label class="pull-right"><input type="checkbox" id="tnc"> I agree to the <a href="javascript:" data-toggle="modal" data-target="#tncModal">Terms and Conditions</a>
                         </div>
                         <div class="panel-footer">                            
@@ -376,9 +378,9 @@
                             <a href="javascript:" class="btn btn-success"> <span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Email All</a>
                             <a href="javascript:" class="btn btn-success"> <span class="glyphicon glyphicon-download"></span>&nbsp;&nbsp;Download All</a>
                             <p class="help-block">Copy or email individual License keys, or download all keys to MS Excel file.</p>
-                            <% for(var i=0; i< resp.activated_licenses.length; i++){ var a = resp.activated_licenses[i];%>
+                            [% for(var i=0; i< resp.activated_licenses.length; i++){ var a = resp.activated_licenses[i];%]
                             <div>
-                                <h4><span class="glyphicon glyphicon-inbox"></span> <%= a.bound_to %></h4>
+                                <h4><span class="glyphicon glyphicon-inbox"></span> [%= a.bound_to %]</h4>
                                 <div class="panel panel-default get-licenses-panel">
                                     <div class="panel-body">
                                         <table class="table">
@@ -390,11 +392,11 @@
                                             </thead>
                                             <tbody>
                                                 <td>
-                                                    <b><%=a.activation_id%></b>
+                                                    <b>[%=a.activation_id%]</b>
                                                     <div class="help-block">Networker mod for Oracle CLT Oracles8 & Later UX</div>
                                                 </td>
-                                                <td><%=a.quantity%></td>
-                                                <td><%=a.units %></td>
+                                                <td>[%=a.quantity%]</td>
+                                                <td>[%=a.units %]</td>
                                                 <td>
                                                     <button type="button" class="btn btn-success">
                                                         <span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;Email
@@ -405,7 +407,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <% } %>                        
+                            [% } %]                        
                         </div>
                         <div class="panel-footer">                            
                             <div class="pull-right">

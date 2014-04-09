@@ -47,6 +47,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="javascript:">Welcome User</a>
                     </li>
+                    <li><a href="dashboard.html">Dashboard</a>
+                    </li>
                     <li><a href="javascript:">Glossary</a>
                     </li>
                     <li><a href="javascript:">Support</a>
@@ -239,14 +241,14 @@
     </div><!-- /.modal -->
 
     <script type="text/html" id="loadingTmpl">
-        <% var loadingText = loadingText || 'loading...'; %>
+        [% var loadingText = loadingText || 'loading...'; %]
         <div class="loading">
             
         </div>
     </script>
 
     <script type="text/html" id="productInfoTmpl">
-        <h5>Activated on <b><%= resp.activated_on %></b> by <b><%= resp.activated_by %></b></h5>
+        <h5>Activated on <b>[%= resp.activated_on %]</b> by <b>[%= resp.activated_by %]</b></h5>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -258,19 +260,19 @@
             </tr>
           </thead>
           <tbody>
-            <% for(var i=0; i<resp.activated_licenses.length; i++){ %>
+            [% for(var i=0; i<resp.activated_licenses.length; i++){ %]
                 <tr>
-                  <td><%= resp.activated_licenses[i].activation_id %></td>
-                  <td><%= resp.activated_licenses[i].bound_to %></td>
-                  <td class="text-center"><%= resp.activated_licenses[i].quantity %></td>
-                  <td class="text-center"><%= resp.activated_licenses[i].units %></td>
+                  <td>[%= resp.activated_licenses[i].activation_id %]</td>
+                  <td>[%= resp.activated_licenses[i].bound_to %]</td>
+                  <td class="text-center">[%= resp.activated_licenses[i].quantity %]</td>
+                  <td class="text-center">[%= resp.activated_licenses[i].units %]</td>
                   <td class="text-center">
                     <a href="javascript:;" class="prodInfoIcon icons-mail"></a>
                     <a href="javascript:;" class="prodInfoIcon icons-user"></a>
                     <a href="javascript:;" class="prodInfoIcon icons-info"></a>
                   </td>
                 </tr>
-            <% } %>
+            [% } %]
           </tbody>
         </table>
     </script>

@@ -23,11 +23,11 @@ var tmpl;
         // Convert the template into pure JavaScript
         str
           .replace(/[\r\t\n]/g, " ")
-          .split("<%").join("\t")
-          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-          .replace(/\t=(.*?)%>/g, "',$1,'")
+          .split("[%").join("\t")
+          .replace(/((^|%])[^\t]*)'/g, "$1\r")
+          .replace(/\t=(.*?)%]/g, "',$1,'")
           .split("\t").join("');")
-          .split("%>").join("p.push('")
+          .split("%]").join("p.push('")
           .split("\r").join("\\'") + "');}return p.join('');");
    
 		// Provide some basic currying to the user
@@ -70,7 +70,7 @@ $(document).ready(function () {
 		setTimeout(function(){
 			$.ajax({
 				'url': $("#licJSONUrl").val().trim(),
-				'content-type': 'json',
+				'contentType': "application/json",
 				'success': function(resp){
 					$('#infoModal .modal-title').html(resp.product_name);
 					$('#infoModal .modal-body').html(tmpl('productInfoTmpl', {
@@ -262,7 +262,7 @@ $(document).ready(function () {
 			{
 				$.ajax({
 					'url': jsonURL,
-					'content-type': 'json',
+					'contentType': "application/json",
 					'success': function(resp){
 						$('#wrapper').hide();
 						resp.selProdQty = selProd.qty;

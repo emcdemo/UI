@@ -13,9 +13,18 @@ $border-radius-base : 0px;
 $border-radius-large : 0px;
 $border-radius-small : 0px;
 
+$black : #787878;
+$panel-black-border : $black; 
+$panel-black-heading-bg : $black;
+$panel-black-text : #fff;
+
 // bower:scss
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
+
+.panel-black {
+  @include panel-variant($panel-black-border, $panel-black-text, $panel-black-heading-bg, $panel-black-border);
+}
 
 .browsehappy {
     margin: 0.2em 0;
@@ -277,3 +286,36 @@ footer {
 }
 /*** -a- section  end ***/
 
+
+/* dashboard related css - START */
+.dashboard{
+  
+  .uid-table th
+  {
+      background: $brand-primary;
+      color: #fff;  
+  }
+
+  .canvasjs-chart-credit
+  {
+      display:none;
+  }
+
+  tr.success, tr.warning, tr.danger
+  {
+    font-weight: bold;
+  }
+
+  .help-block a
+  {
+    cursor:pointer;
+    text-decoration:none;
+  }
+
+  .modal-dialog
+  {
+    width:90%;
+  }
+
+}
+/* dashboard related css - START */
