@@ -1,29 +1,30 @@
 var loadTrendChart = function () {
 	var chart = new CanvasJS.Chart('s3TrendChart',
 		    {
-		      title:{
-		      text: 'Usage Trend'
-		      },
+		      /*title:{
+		      	text: 'Usage Trend'
+		      },*/
 		       data: [
-		      {
-		        type: 'line',
+			      {
+			        type: 'line',
 
-		        dataPoints: [
-		        { x: new Date(2012, 00, 1), y: 450 },
-		        { x: new Date(2012, 01, 1), y: 414 },
-		        { x: new Date(2012, 02, 1), y: 520 },
-		        { x: new Date(2012, 03, 1), y: 460 },
-		        { x: new Date(2012, 04, 1), y: 450 },
-		        { x: new Date(2012, 05, 1), y: 500 },
-		        { x: new Date(2012, 06, 1), y: 480 },
-		        { x: new Date(2012, 07, 1), y: 480 },
-		        { x: new Date(2012, 08, 1), y: 410 },
-		        { x: new Date(2012, 09, 1), y: 500 },
-		        { x: new Date(2012, 10, 1), y: 480 },
-		        { x: new Date(2012, 11, 1), y: 510 }
-		        ]
-		      }
-		      ]
+			        dataPoints: [ 
+						{ x: new Date(2013, 04, 1), y: 450 }, 
+						{ x: new Date(2013, 05, 1), y: 414 }, 
+						{ x: new Date(2013, 06, 1), y: 520 }, 
+						{ x: new Date(2013, 07, 1), y: 460 }, 
+						{ x: new Date(2013, 08, 1), y: 450 }, 
+						{ x: new Date(2013, 09, 1), y: 500 }, 
+						{ x: new Date(2013, 10, 1), y: 480 }, 
+						{ x: new Date(2013, 11, 1), y: 480 }, 
+						{ x: new Date(2013, 12, 1), y: 410 }, 
+						{ x: new Date(2014, 01, 1), y: 500 }, 
+						{ x: new Date(2014, 02, 1), y: 480 }, 
+						{ x: new Date(2014, 03, 1), y: 510 } 
+					] 
+				   } 
+				] 
+
 		    });
 
 			chart.render();
@@ -46,15 +47,15 @@ window.onload = function () {
 		{
 			var chart = new CanvasJS.Chart("dbEntnActChart",
 			{
-				title:{
+				/*title:{
 					text: "Entitlements and Activations"
-				},
+				},*/
 				toolTip: {
 					shared: true
 				},
-				axisX:{
+				/*axisX:{
 					title: "Products"
-				},
+				},*/
 
 				axisY: {
 					title: ""
@@ -101,6 +102,7 @@ window.onload = function () {
 				],
 	          legend:{
 	            cursor:"pointer",
+	            fontSize: 16,
 	            itemclick: function(e){
 	              if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
 	              	e.dataSeries.visible = false;
@@ -118,9 +120,9 @@ window.onload = function () {
 		if($("#dbCurrUsg").length === 1)
 		{
 			var chart = new CanvasJS.Chart("dbCurrUsg", {
-            title: {
+            /*title: {
                 text: "Current Usage"
-            },/*
+            },
             axisY: {
                 tickThickness: 0,
                 lineThickness: 0,
